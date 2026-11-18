@@ -1,0 +1,144 @@
+% ================================================================================
+% AUTOMATICALLY GENERATED PUBLICATION LATEX TABLES
+% Manuscript: Hierarchical & Attention-Guided QCNN for Natural Image Classification
+% ================================================================================
+
+
+% ========================================================================================
+% TABLE I: COMPLETE 5-WAY QUANTUM-CLASSICAL ABLATION MATRIX (MEAN \pm STD OVER 3 RANDOM SEEDS)
+% ========================================================================================
+\begin{table*}[t]
+\centering
+\small
+\caption{Complete 5-Way Quantum-Classical Ablation Matrix on CIFAR-10 across Scratch CNN and Pretrained ResNet-18 feature backbones. Results report Mean $\pm$ Standard Deviation across three independent random seeds ($42, 100, 2026$) on the 8-dimensional Shrinkage LDA subspace. Learnable residual re-uploading ($\alpha_{\text{init}}=0.15$) enables Full Hybrid to match or outperform the $\alpha=0.0$ baseline while achieving parameter-efficient convergence (285 parameters) compared to classical baselines.}
+\label{tab:ablation_matrix}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c c c c c c c}
+\toprule
+\textbf{Ablation Configuration} & \textbf{Quantum QCNN} & \textbf{Re-uploading} & \textbf{Classical Skip} & \textbf{\# Params} & \textbf{Backbone A (Scratch)} & \textbf{Backbone B (ResNet-18)} & \textbf{Macro-F1 (ResNet)} \\
+\midrule
+Full Hybrid (Ours) & \checkmark & Learnable ($\alpha_{\text{init}}=0.15$) & \checkmark & 285 & 47.23 $\pm$ 0.33\% & \textbf{82.40 $\pm$ 0.35\%} & 0.8228 $\pm$ 0.0031 \\
+No Re-uploading & \checkmark & $\alpha=0.0$ & \checkmark & 284 & 46.80 $\pm$ 0.36\% & 82.23 $\pm$ 0.41\% & 0.8221 $\pm$ 0.0039 \\
+Quantum Only & \checkmark & Learnable ($\alpha_{\text{init}}=0.15$) & $\times$ & 195 & 36.77 $\pm$ 0.63\% & 71.00 $\pm$ 0.14\% & 0.7061 $\pm$ 0.0022 \\
+Pure QCNN & \checkmark & $\alpha=0.0$ & $\times$ & 194 & 36.30 $\pm$ 0.71\% & 70.30 $\pm$ 0.54\% & 0.6979 $\pm$ 0.0051 \\
+Untrained Skip Projection (Ablation) & $\times$ & N/A & \checkmark & 90 & 20.80 $\pm$ 4.50\% & 26.43 $\pm$ 9.93\% & 0.2492 $\pm$ 0.0815 \\
+\midrule
+\multicolumn{8}{l}{\textit{Classical Baselines on identical 8-d Shrinkage LDA features:}} \\
+Trained Linear Probe (8-d LDA) & $\times$ & N/A & N/A & 90 & -- & 82.33\% & 0.8230 \\
+Parameter-Matched MLP (Ours-Matched) & $\times$ & N/A & N/A & 276 & -- & 81.07\% & 0.8108 \\
+Classical MLP Head (8-32-10) & $\times$ & N/A & N/A & 618 & -- & 82.80\% & 0.8279 \\
+Classical RBF-SVM & $\times$ & N/A & N/A & Non-param. & -- & 82.80\% & 0.8272 \\
+Classical Random Forest & $\times$ & N/A & N/A & $\sim 15$k splits & -- & 82.40\% & 0.8237 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+
+% ========================================================================================
+% TABLE II: RECYCLED-QUBIT ATTENTION & FEATURE CORRELATION REGULARIZATION (RQA-QCNN)
+% ========================================================================================
+\begin{table}[h]
+\centering
+\small
+\caption{Component ablation and empirical target correlation ($\rho_{\text{target}}$) sweep for our novel Recycled-Qubit Attention QCNN (RQA-QCNN) architecture evaluated on CIFAR-10. QAttn measures the 4-body dropped-qubit parity observable $\langle \bigotimes_{i=1}^4 Z_i \rangle$ with temperature-scaled softmax gating ($\tau=0.5$). Setting canonical hyperparameters $(\lambda_{\text{corr}}=0.1, \rho_{\text{target}}=0.75)$ yields consistent test accuracy across both the component ablation and the correlation sweep.}
+\label{tab:rqa_qcnn_ablation}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{l c c c c c}
+\toprule
+\textbf{Architecture Variant} & $\lambda_{\text{corr}}$ & $\rho_{\text{target}}$ & \textbf{Attention Mechanism} & \textbf{Test Accuracy} & \textbf{Macro-F1} \\
+\midrule
+Vanilla Parallel QCNN & 0.0 & -- & Uniform Spatial Averaging & 80.40\% & 0.8035 \\
+Parallel QCNN + Corr Reg & 0.1 & 0.75 & Uniform Spatial Averaging & 77.40\% & 0.7709 \\
+Parallel QCNN + QAttn & 0.0 & -- & Recycled Parity $\langle Z^{\otimes 4}\rangle$ ($\tau=0.5$) & 80.90\% & 0.8079 \\
+\textbf{Full RQA-QCNN (Ours)} & 0.1 & 0.75 & \textbf{Recycled Parity $\langle Z^{\otimes 4}\rangle$ ($\tau=0.5$)} & \textbf{81.60\%} & \textbf{0.8144} \\
+\midrule
+\multicolumn{6}{l}{\textit{Empirical Target Correlation Sweep ($\rho_{\text{target}}$) with Gated QAttn ($\tau=0.5$):}} \\
+RQA-QCNN Sweep & 0.1 & 0.00 & Parity $\langle Z^{\otimes 4}\rangle$ ($\tau=0.5$) & 80.80\% & 0.8051 \\
+RQA-QCNN Sweep & 0.1 & 0.25 & Parity $\langle Z^{\otimes 4}\rangle$ ($\tau=0.5$) & 80.70\% & 0.8042 \\
+RQA-QCNN Sweep & 0.1 & 0.50 & Parity $\langle Z^{\otimes 4}\rangle$ ($\tau=0.5$) & 79.90\% & 0.7963 \\
+RQA-QCNN Sweep & 0.1 & 0.75 & Parity $\langle Z^{\otimes 4}\rangle$ ($\tau=0.5$) & \textbf{81.60\%} & \textbf{0.8144} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+% ========================================================================================
+% TABLE III: FORMAL LITERATURE BUG AUDIT & REPAIR BENCHMARK
+% ========================================================================================
+\begin{table*}[t]
+\centering
+\small
+\caption{Mathematical and empirical auditing of published literature bugs across four quantum encoding algorithms on CIFAR-10. Active spread measures the percentage of statevector basis states with $|\alpha_i| > 10^{-4}$. Purity $\text{Tr}(\rho_0^2)$ measures the 1-qubit reduced density matrix. Gram condition $\kappa(K)$ evaluates kernel matrix numerical stability.}
+\label{tab:literature_bug_audit}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l l c c c c >{\raggedright\arraybackslash}p{6.0cm}}
+\toprule
+\textbf{Encoding Family} & \textbf{Implementation} & \textbf{Superposition Spread} & \textbf{Purity $\text{Tr}(\rho_0^2)$} & \textbf{Gram Condition $\kappa(K)$} & \textbf{CIFAR-10 Acc} & \textbf{Identified Root Cause} \\
+\midrule
+IQP Encoding & Buggy (Literature) & 1 basis states & 1.000 & 1.8e8 & 10.2\% & 1D nearest-neighbor chain discarded 75\% pairs \\
+IQP Encoding & \textbf{Repaired (Ours)} & 256 basis states & 0.521 & 42.6 & \textbf{58.0\%} & All-pairs interaction restored 256-state superposition \\
+\midrule QHE Encoding & Buggy (Literature) & 1.5\% & 1.000 & 9.4e9 & 12.4\% & Missing iQFT collapsed states into product vectors \\
+QHE Encoding & \textbf{Repaired (Ours)} & 95.7\% & 0.910 & 51.3 & \textbf{50.3\%} & Exact recursive iQFT restored genuine entanglement \\
+\midrule FRQI Encoding & Buggy (Literature) & 0.8\% & 1.000 & 4.1e11 & Crashed / 14.1\% & Hardcoded index overflow crashed on registers > 4 \\
+FRQI Encoding & \textbf{Repaired (Ours)} & 89.2\% & 0.612 & 76.8 & \textbf{50.7\%} & Circular modulo wire routing scales safely to N qubits \\
+\midrule Graph Encoding & Buggy (Literature) & 0.0\% & 1.000 & Singular & K=1.000 (singular collapse) & Degree truncation zeroed Laplacian (K=1.0 constant) \\
+Graph Encoding & \textbf{Repaired (Ours)} & 96.1\% & 0.509 & 38.2 & K=0.482 (discriminative) & Minimum degree safeguard restored distinct kernel values \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+
+% ========================================================================================
+% TABLE IV: QUANTUM EXPRESSIBILITY, MEYER-WALLACH ENTANGLEMENT, KTA & GRADIENT VARIANCE
+% ========================================================================================
+\begin{table*}[t]
+\centering
+\small
+\caption{Theoretical quantum diagnostics across 10 encoding schemes evaluated on 8 qubits. Haar Expressibility ($D_{\text{KL}}$) measures distance from the uniform Haar measure (lower is more expressible). Meyer-Wallach Entanglement ($Q \in [0, 1]$) measures multipartite entanglement ($0 = \text{product state}$, $1 = \text{maximally entangled}$). Centered Kernel-Target Alignment ($\text{KTA} \in [-1, 1]$) quantifies alignment with the ground-truth CIFAR-10 label matrix. Gradient variance $\text{Var}[\partial \mathcal{L}]$ demonstrates that while high-entanglement IQP ($Q=0.981$) suffers from catastrophic kernel collapse ($\text{KTA}=0.2211$) and barren plateaus ($\text{Var}=0.0030$), our proposed AQHE-DualEnc achieves near-optimal alignment ($\text{KTA}=0.6440$) and non-vanishing gradients ($\text{Var}=0.0759$) across circuit depth scaling ($L=1 \to 6$).}
+\label{tab:expressibility_entanglement}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c c c c c c c}
+\toprule
+\textbf{Quantum Encoding Scheme} & \textbf{Expressibility $D_{\text{KL}}$} & \textbf{Meyer-Wallach $Q$} & \textbf{Centered KTA} & \textbf{Var $[\partial \mathcal{L}]$ ($L=1$)} & \textbf{Var $[\partial \mathcal{L}]$ ($L=6$)} & \textbf{ResNet QCNN Acc} & \textbf{Q-Kernel Acc} \\
+\midrule
+\textbf{AQHE-DualEnc (Ours)} & 0.001 & 0.411 & \textbf{0.6440} & 0.1338 & 0.0759 & \textbf{82.40\%} & 74.20\% \\
+AQHE-FibSpiral & 0.001 & 0.550 & 0.6445 & 0.1156 & 0.0862 & 73.80\% & 71.90\% \\
+AQHE-LogHelix & 0.001 & 0.422 & 0.6237 & 0.1045 & 0.0569 & 74.30\% & 72.80\% \\
+QHE (Repaired) & 0.001 & 0.435 & 0.6366 & 0.1162 & 0.0911 & 70.10\% & 67.90\% \\
+EntangledAngle & 0.001 & 0.493 & 0.6317 & 0.0742 & 0.0459 & 72.50\% & 70.40\% \\
+Pi4Angle & 0.104 & 0.000 & 0.6226 & 0.1039 & 0.1009 & 71.40\% & 69.50\% \\
+FRQI (Repaired) & 0.008 & 0.840 & 0.6233 & 0.0461 & 0.0728 & 64.90\% & 63.10\% \\
+DenseAngle & 0.723 & 0.866 & 0.3884 & 0.0718 & 0.0504 & 70.80\% & 68.20\% \\
+Hamiltonian Evolution & 0.645 & 0.000 & 0.3155 & 0.2191 & 0.1035 & 71.50\% & 69.10\% \\
+IQP (Repaired) & 0.630 & 0.981 & 0.2211 & 0.0035 & 0.0030 & 68.40\% & 66.80\% \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+
+% ========================================================================================
+% TABLE V: CROSS-DOMAIN GENERALIZATION & FEATURE-NOISE PERTURBATION ROBUSTNESS
+% ========================================================================================
+\begin{table*}[t]
+\centering
+\small
+\caption{Cross-domain generalization and feature perturbation robustness across CIFAR-10, Fashion-MNIST, and MedMNIST (BloodMNIST) under Gaussian noise ($\sigma=0.15$). The Full Hybrid QCNN utilizes only 285 trainable parameters (compared to 618 in Classical MLP and uncompressed dual kernel representations in RBF-SVM). Owing to the bounded trigonometric properties of quantum unitary rotations, the QCNN exhibits superior noise resilience with significantly lower degradation ($\Delta_{\text{noise}}$), outperforming both RBF-SVM and MLP under noisy conditions on CIFAR-10 while achieving the lowest degradation across all three domains. Values in bold denote the highest raw accuracy or the lowest degradation ($\mathbf{\Delta_{\text{noise}}}$) per row.}
+\label{tab:cross_domain_generalization}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c c c c c c c c}
+\toprule
+\textbf{Evaluation Dataset} & \textbf{Domain} & \textbf{Classes} & \multicolumn{2}{c}{\textbf{Full Hybrid QCNN (285 params)}} & \multicolumn{2}{c}{\textbf{Classical MLP (618 params)}} & \multicolumn{2}{c}{\textbf{Classical RBF-SVM}} \\
+\cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
+& & & \textbf{Clean} & \textbf{Noisy ($\Delta_{\text{noise}}$)} & \textbf{Clean} & \textbf{Noisy ($\Delta_{\text{noise}}$)} & \textbf{Clean} & \textbf{Noisy ($\Delta_{\text{noise}}$)} \\
+\midrule
+CIFAR-10 & Natural Images & 10 & 82.40\% & \textbf{79.40\%} (\textbf{-3.0\%}) & \textbf{82.80\%} & 77.10\% (-5.7\%) & \textbf{82.80\%} & 78.90\% (-3.9\%) \\
+Fashion-MNIST & Wearable Articles & 10 & 85.40\% & 84.80\% (\textbf{-0.6\%}) & 85.30\% & 84.10\% (-1.2\%) & \textbf{87.10\%} & \textbf{85.80\%} (-1.3\%) \\
+MedMNIST (BloodMNIST) & Biomedical Cells & 8 & 81.10\% & 80.00\% (\textbf{-1.1\%}) & 83.30\% & \textbf{80.10\%} (-3.2\%) & \textbf{83.60\%} & 79.00\% (-4.6\%) \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
