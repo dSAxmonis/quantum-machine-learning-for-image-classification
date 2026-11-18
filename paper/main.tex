@@ -88,23 +88,9 @@
       \noindent\textbf{\textit{Keywords:}} Quantum Machine Learning, Quantum Convolutional Neural Networks (QCNN), Data Re-uploading, Recycled-Qubit Attention, Meyer-Wallach Entanglement, Kernel-Target Alignment, NISQ Robustness, Barren Plateaus.
       \vspace{0.5cm}
     \end{minipage}
-  \end{center}
+    \end{center}
 }]
-\begin{abstract}
-Deploying Quantum Convolutional Neural Networks (QCNNs) to natural image classification is hindered by a fundamental dimensional mismatch: real-world color images contain thousands of input dimensions, while Noisy Intermediate-Scale Quantum (NISQ) registers are constrained to fewer than a dozen coherent qubits. In this work, we present a comprehensive investigation into hierarchical quantum-classical hybrid architectures for natural image classification on an 8-qubit register. First, through systematic mathematical auditing, we identify four critical failure modes in previously published quantum feature encodings---including singular Gram matrices ($\kappa \sim 10^8$) in 1D-IQP chains, missing adjoint phases in Quantum Haar Encodings collapsing superpositions into separable product vectors, and runtime coordinate overflows in flexible representation schemes---and propose mathematically sound repair formulations that recover full superposition spreads across $2^8 = 256$ basis states. Second, to overcome the information destruction of naive principal component reductions, we formulate a two-stage distillation pipeline combining deep convolutional feature extraction with regularized Shrinkage Linear Discriminant Analysis (LDA), compressing 512-dimensional penultimate representations into an 8-dimensional Fisher-optimal subspace. Third, we introduce the \textit{Recycled-Qubit Attention QCNN} (RQA-QCNN), an ansatz that extracts non-local 4-body parity observables $\langle \bigotimes_{i=1}^4 Z_i \rangle$ from mid-circuit qubits discarded during pooling operations, converting discarded quantum degrees of freedom into spatial attention gating factors under temperature-scaled softmax dynamics ($\tau=0.5$). Fourth, we conduct a rigorous 5-way ablation across independent seeds on CIFAR-10, demonstrating that our Full Hybrid QCNN with learnable residual data re-uploading achieves $82.40 \pm 0.35$\% test accuracy with only 285 parameters, strictly outperforming parameter-matched classical multi-layer perceptrons (276 parameters, 81.07\%) and matching uncompressed classical baselines. Fifth, theoretical quantum diagnostic metrics---including Haar expressibility ($D_{\text{KL}}$), Meyer-Wallach entanglement ($Q \in [0, 1]$), Centered Kernel-Target Alignment ($\text{KTA}$), and gradient variance scaling across depths $L \in \{1, \dots, 6\}$---reveal that our proposed Adaptive Quantum Haar Encoding (AQHE-DualEnc) achieves near-optimal alignment ($\text{KTA}=0.6440$) and non-vanishing gradients ($\text{Var}=0.0759$), avoiding the catastrophic kernel concentration and barren plateaus suffered by high-entanglement IQP ($Q=0.981, \text{KTA}=0.2211, \text{Var}=0.0030$). Finally, stress testing under Gaussian feature perturbations ($\sigma=0.15$) across CIFAR-10, Fashion-MNIST, and BloodMNIST reveals that bounded trigonometric unitary rotations intrinsically suppress error propagation, yielding strictly superior perturbation resilience ($\Delta_{\text{drop}} \in [0.6, 3.0]$\%) compared to classical counterparts.
-    \end{abstract}
-    \vspace{0.25cm}
-    \noindent\textbf{\textit{Keywords:}} Quantum Machine Learning, Quantum Convolutional Neural Networks (QCNN), Data Re-uploading, Recycled-Qubit Attention, Meyer-Wallach Entanglement, Kernel-Target Alignment, NISQ Robustness, Barren Plateaus.
-    \vspace{0.6cm}
-  \end{@twocolumnfalse}
-]
-\makeatother
-\thispagestyle{plain}
 
-
-% ========================================================================================
-% SECTION 1: INTRODUCTION
-% ========================================================================================
 \section{Introduction}
 \label{sec:introduction}
 
